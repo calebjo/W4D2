@@ -1,3 +1,5 @@
+require_relative "./stepable.rb"
+require "colorize"
 class Piece
     
     
@@ -30,12 +32,4 @@ class Piece
      def move_into_check?(end_pos)
 
      end
-end
-
-class KnightKing < Piece
-    def initialize (color,board,pos)
-        super (color,board,pos)
-    end
-
-    
 end
