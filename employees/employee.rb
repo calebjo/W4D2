@@ -1,9 +1,15 @@
+require "byebug"
 
 class Employee
-    attr_reader :salary
+    attr_reader :salary, :name
 
     def initialize(name, title, salary, boss = nil)
         @name, @title, @salary, @boss = name, title, salary, boss
+        add_employee
+    end
+
+    def add_employee
+        @boss.employees << self unless @boss.nil?
     end
     
     def bonus(multiplier)
@@ -22,7 +28,7 @@ class Manager < Employee
 
     def bonus(multiplier)
         total = 0
-
+        @employees.flatten.each {|empl| p empl.name }
         @employees.flatten.each {|empl| total += empl.salary }
 
         total * multiplier
@@ -30,10 +36,13 @@ class Manager < Employee
 
 end
 
-m = Manager.new("Alex", "Manager", 10000)
+ceo = Manager.new("Any","CEO", 40000)
+m = Manager.new("Alex", "Manager", 10000,ceo)
 e1 = Employee.new("Caleb", "Employee", 6000, m)
 e2 = Employee.new("Bob", "Employee", 3000, m)
 e3 = Employee.new("Dave", "Employee", 4000, m)
 
-p m 
-p e1
+# p m 
+# p e1
+ceo.bonus(3)
+# p ceo
