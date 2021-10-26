@@ -3,6 +3,8 @@ require "byebug"
 
 class Board
 
+    attr_accessor :rows
+
     def self.grid
         Array.new(8) { Array.new(8) }
     end
@@ -17,17 +19,16 @@ class Board
     
     def populate
         range = [0, 1, 6, 7]
-        # debugger
-        @rows.each_with_index do |row, i|
-            if range.include?(i)
-                row.map! {|pos| pos = Piece.new }
+        (0..@rows.length-1).each do |i|
+            (0..@rows.length-1).each do |j|
+                @rows[i][j] = Piece.new(:W, self, [i, j]) if range.include?(i)
             end
         end
     end
 
     def print
         @rows.each do |row|
-            p row.map{|ele| ele == nil ? ele : ele.name}
+            p row.map{|ele| ele == nil ? ele : ele.color}
         end
     end
 
@@ -41,9 +42,9 @@ class Board
         @rows[x][y] = value
     end
 
-    def valid_move?(pos)
+    def valid_move?(star_pos, end_pos)
         valid_range = (0..7)
-        unless valid_range.include?(pos.first) && valid_range.include?(pos.last)
+        unless valid_range.include?(end_pos.first) && valid_range.include?(end_pos.last)
             raise "Outside of the board." 
             return false
         end
@@ -51,7 +52,7 @@ class Board
     end
 
     def move_piece(start_pos, end_pos)
-        if (valid_move?(start_pos)) && (valid_move?(end_pos)) && (self[start_pos] != nil) && (self[end_pos] == nil)
+        if valid_move?(start_pos, end_pos) && (self[start_pos] != nil) && (self[end_pos] == nil)
             this_piece = self[start_pos]
             self[end_pos] = this_piece
             self[start_pos] = nil
@@ -65,6 +66,10 @@ class Board
 end
 
 b = Board.new
+# # p = Piece.new(:W, b, [4,1])
+
+# b.print
+# p p
 # pos = [0,0]
 # b.populate
 b.print

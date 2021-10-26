@@ -1,9 +1,11 @@
-require_relative "./stepable.rb"
+# require_relative "./stepable.rb"
+# require_relative "./board.rb"
 require "colorize"
+
 class Piece
+    attr_reader :color
     
-    
-    def initialize(color,board,pos)
+    def initialize(color, board, pos)
         @color, @board, @pos = color, board, pos
     end
     
@@ -15,8 +17,9 @@ class Piece
 
      end
 
-     def valid_moves?
-
+     def valid_moves
+        moves_array = []
+        @board
      end
 
      def pos=(val)
@@ -33,3 +36,4 @@ class Piece
 
      end
 end
+

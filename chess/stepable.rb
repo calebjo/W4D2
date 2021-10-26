@@ -1,7 +1,7 @@
 
 class King < Piece
     def symbol
-        @color == "white" ? ♔ : ♚
+        @color == "white" ? "♚" : "♔"
     end
     
     protected
@@ -33,6 +33,7 @@ module Stepable
 
     private 
     def moves_diffs
+
     end
 
 end
