@@ -27,7 +27,7 @@ class Board
 
     def print
         @rows.each do |row|
-            p row
+            p row.map{|ele| ele == nil ? ele : ele.name}
         end
     end
 
@@ -66,8 +66,8 @@ end
 
 b = Board.new
 # pos = [0,0]
-b.populate
+# b.populate
 b.print
 puts "-----------------------------"
-b.move_piece([8,0],[3,2])
+b.move_piece([1,0],[3,2])
 b.print
