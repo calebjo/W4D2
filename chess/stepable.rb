@@ -1,16 +1,15 @@
+require_relative "./piece.rb"
 
 class King < Piece
+
     include Stepable
+
     def symbol
         @color == "white" ? "♚" : "♔"
     end
-
-
     
     protected
     def move_diffs 
-
-        
         moves = [
             [0,1],
             [0,-1],
@@ -30,8 +29,6 @@ class Knight < Piece
 end
 
 module Stepable
-
-
     def moves
         moves_array = []
         (0..7).each do |i|
