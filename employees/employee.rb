@@ -28,19 +28,14 @@ class Manager < Employee
 
     def bonus(multiplier)
         total = 0
- 
-        queue = [*@employees]
-        p queue[0].employees[0]
-        # until queue.empty?
-        #     current = queue.pop
-        #     total += current.salary
-        #     current.employees.each {|empl| queue.unshift(empl) }
-        # end
-        p total
-        # @employees.flatten.each {|empl| p empl.name }
-        # puts @employees.flatten
-        @employees.flatten.each {|empl| total += empl.salary }
-
+        queue = @employees
+        until queue.empty?
+            current = queue.shift
+            total += current.salary
+            if current.is_a?(Manager)
+                current.employees.each {|empl| queue << empl }
+            end
+        end
         total * multiplier
     end
 
@@ -54,5 +49,7 @@ e3 = Employee.new("Dave", "Employee", 4000, m)
 
 # p m 
 # p e1
-ceo.bonus(3)
+p ceo.bonus(3)
+p m.bonus(2)
+p e1.bonus(3)
 # p ceo
