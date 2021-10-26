@@ -18,8 +18,7 @@ class Piece
      end
 
      def valid_moves
-        moves_array = []
-        @board
+
      end
 
      def pos=(val)

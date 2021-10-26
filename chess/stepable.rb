@@ -1,11 +1,16 @@
 
 class King < Piece
+    include Stepable
     def symbol
         @color == "white" ? "♚" : "♔"
     end
+
+
     
     protected
     def move_diffs 
+
+        
         moves = [
             [0,1],
             [0,-1],
@@ -28,12 +33,18 @@ module Stepable
 
 
     def moves
-        MOVES = 
+        moves_array = []
+        (0..7).each do |i|
+            (0..7).each do |j|
+                moves_array << [i,j] if @board[[i,j]] == nil 
+            end
+        end
     end
+
 
     private 
     def moves_diffs
-
+        raise NotImplementedError, "Not implemented"
     end
 
 end
