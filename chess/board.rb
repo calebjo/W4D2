@@ -41,10 +41,25 @@ class Board
         @rows[x][y] = value
     end
 
+    def valid_move?(pos)
+        valid_range = (0..7)
+        unless valid_range.include?(pos.first) && valid_range.include?(pos.last)
+            raise "Outside of the board." 
+            return false
+        end
+        true
+    end
+
     def move_piece(start_pos, end_pos)
-        this_piece = @rows[start_pos]
-        @rows[end_pos] = this_piece
-        @rows[start_pos] = nil
+        if (valid_move?(start_pos)) && (valid_move?(end_pos)) && (self[start_pos] != nil) && (self[end_pos] == nil)
+            this_piece = self[start_pos]
+            self[end_pos] = this_piece
+            self[start_pos] = nil
+            return true
+        else
+            raise "Wrong move."
+            return false
+        end
     end
 
 end
@@ -54,7 +69,5 @@ b = Board.new
 b.populate
 b.print
 puts "-----------------------------"
-a = [1,0]
-b = [3,0]
-b.move_piece(a,b)
+b.move_piece([8,0],[3,2])
 b.print
